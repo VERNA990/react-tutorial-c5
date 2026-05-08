@@ -15,7 +15,7 @@ function RegisterPage() {
     
     const togglePassword = () => setShowPassword(!showPassword);
 
-    const handleRegister = () => {
+    const handleRegister = async() => {
         console.log("Executed!");
         const payload: UserCredentials = {
             username,
@@ -24,7 +24,7 @@ function RegisterPage() {
             createdAt: Date(),
         };
 
-        const res = register(payload);
+        const res = await register(payload);
 
         console.log("Response from post: ", res);
 
@@ -32,7 +32,7 @@ function RegisterPage() {
             toast("Account creation successful! Redirecting...");
             setTimeout(() => {
 			router.push("/login")
-		}, 2000);
+		}, 1500);
          } else {
              toast.error("Failed to create account! Try again.");
          }

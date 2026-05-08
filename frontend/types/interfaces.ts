@@ -25,3 +25,17 @@ export interface LoginCredentials {
 	identifier: string;
 	password: string;
 }
+
+export interface User {
+	id:	string;
+	username:	string;
+	email:	string;
+	createdAt:	string; 
+	updatedAt:	string;
+	deletedAt:	string;
+}
+
+export interface LoginResponse {
+	token: string;
+	user: User;
+}

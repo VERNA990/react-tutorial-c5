@@ -60,6 +60,7 @@ func main() {
 		MaxAge:           12 * time.Hour,
 	}))
 
+
 	// Healthcheck
 	route.GET("/api/v1/healthcheck", func(ctx *gin.Context) {
 		ctx.JSON(http.StatusOK, gin.H{
