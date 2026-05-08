@@ -1,62 +1,49 @@
-import { GetTransactionsParamsType, LoginCredentials, TransactionType, UserCredentials } from "@/types/interfaces";
+import { GetTransactionsParamsType, LoginCredentials, LoginResponse, TransactionType, User, UserCredentials } from "@/types/interfaces";
 import axios from "axios";
 
-export interface ResponseType {
+export interface ResponseType<T = unknown> {
 	success: boolean;
 	error: any;
+	data?: T;
 }
 
 const BASEURL = process.env.NEXT_PUBLIC_BASEURL;
 
 
-export const register = (payload: UserCredentials) => {
+export const register = async (payload: UserCredentials): Promise<ResponseType<User>> => {
+	try{
     console.log("Fetch function executed!");
-    let response: ResponseType = {
+	const res = await axios.post(BASEURL + "/api/v1/register", payload);
+    return {
+		success: true,
         error: null,
-        success: true,
+		data: res.data,
     };
+} catch (err) {
+	return {
+		success: true,
+        error: err,
+	};
+}
 
-    axios
-    	.post(BASEURL + "/api/v1/register", payload)
-    	.then((res) => {
-    		response = {
-    			error: undefined,
-    			success: true,
-    		};
-    	})
-    
-    	.catch((err) => {
-    		response = {
-    			error: err,
-    			success: false,
-    		};
-    	});
-
-    return response;
 };
 
-export const login = (payload:LoginCredentials ) => {
+export const login = async (payload:LoginCredentials ): Promise<ResponseType<LoginResponse>> => {
+	try {
     console.log("Fetch function executed!");
-    let response: ResponseType = {
-        error: null,
-        success: true,
+	const res = await axios.post(BASEURL + "/api/v1/login", payload);
+
+	return {        
+		success: true,
+		error: null,
+		data: res.data,
     };
-    axios
-    	.post(BASEURL + "/api/v1/login", payload)
-    	.then((res) => {
-    		response = {
-    			error: undefined,
-    			success: true,
-    		};
-    	})
-    
-    	.catch((err) => {
-    		response = {
-    			error: err,
-    			success: false,
-    		};
-    	});
-    return response;
+    } catch (err) {
+	return {
+		success: true,
+        error: err,
+	};
+}
 };
 
 

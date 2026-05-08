@@ -17,14 +17,14 @@ function LoginPage() {
 
     const togglePassword = () => setShowPassword(!showPassword);
 
-    const handleLogin = () => {
+    const handleLogin = async () => {
         console.log("Executed!");
         const payload: LoginCredentials = {
             identifier: username,
             password,
         };
 
-        const res = login(payload);
+        const res = await login(payload);
         
                 console.log("Response from post: ", res);
         
@@ -32,7 +32,7 @@ function LoginPage() {
                     toast("Log in successful! Redirecting...");
                     setTimeout(() => {
                     router.push("/dashboard")
-                }, 2000);
+                }, 1500);
                  } else {
                      toast.error("Incorrect credentials! Try again.");
                  }
